@@ -1,13 +1,9 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.regex.Matcher;
-
+import java.io.*;
 import javax.print.DocFlavor.STRING;
-
+import javax.swing.*;
 import java.util.regex.*;
 
 import javafx.scene.effect.ImageInput;
-import java.io.IOException;
 
 class hello100 {
     public static void main(String[] args) {
@@ -16,7 +12,9 @@ class hello100 {
         int ii = 101;
         boolean k = true;
         Pattern p = Pattern.compile("^hello$|^Hello$|^HELLO$");
-        System.out.println("100回挨拶するまで終了できません");
+        Pattern pExit = Pattern.compile("^exit$|^EXIT$|^Exit$");
+        Pattern pHelp = Pattern.compile("^help$|^HELP$|^Help$");
+        System.out.println("説明: HELPと入力");
         try {
             while (i < ii) {
                 System.out.println("\n" + i + "人目「Hello」");
@@ -24,6 +22,16 @@ class hello100 {
                 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
                 str = br.readLine();
                 Matcher m = p.matcher(str);
+                Matcher mExit = pExit.matcher(str);
+                Matcher mHelp = pHelp.matcher(str);
+                if(mExit.find()){
+                    System.exit(0);
+                    break;
+                }
+                if(mHelp.find()){
+                    System.out.println("\n--HELP--\n100回挨拶するかExitと打つまで終了できません\nExit: 終了\n※入力は大文字小文字関係なく認識されます\n--HELP--\n");
+                    continue;
+                }
                 if (m.find()) {
                     System.out.println(i + "人目「Hello World!!」");
                     f++;
@@ -34,11 +42,11 @@ class hello100 {
                     k = true;
                 }
                 i++;
-                if (f < 100 && k){
+                if (f < 100 && k) {
                     System.out.println("得点: " + f);
                     ii++;
                     System.out.println("残り人数" + (ii - i));
-                }else{
+                } else {
                     System.out.println("得点: " + f);
                     System.out.println("残り人数" + (ii - i));
                 }
