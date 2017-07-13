@@ -11,18 +11,26 @@ class STWJAGP {
         int ii = 101;
         int tmp;
         boolean k = true;
+        boolean name_boolean = false;
+        String name = null;
         Pattern pCheat = Pattern.compile("^cheat [0-9]{0,3} [a-z]{4}$");
         Pattern pEcho = Pattern.compile("^echo ?+");
+        Pattern pName = Pattern.compile("^name ?+");
         System.out.println("説明: HELPと入力");
         try {
             while (i < ii) {
-                System.out.println("\n" + i + "人目「Hello」");
+                if (name_boolean){
+                    System.out.println("\n" + i + "人目の" + name + "「Hello」");
+                }else{
+                    System.out.println("\n" + i + "人目「Hello」");
+                }
                 String str = null;
                 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
                 str = br.readLine();
                 String str_cat = str.toLowerCase();
                 Matcher mCheat = pCheat.matcher(str_cat);
                 Matcher mEcho = pEcho.matcher(str_cat);
+                Matcher mName = pName.matcher(str_cat);
                 if (str_cat.equals("exit")) {
                     System.out.println("\nGoodBye");
                     System.exit(0);
@@ -30,7 +38,7 @@ class STWJAGP {
                 }
                 if (str_cat.equals("help")) {
                     System.out.println(
-                            "\n--HELP--\n100回挨拶するかExitと打つまで終了できません\nExit: 終了\necho: 名前の通りエコー命令です\n  echo [テキスト]と打つとテキストの部分が帰ってきます\nCheat: チートできます\n  Cheatの命令: \n           kill 全体の人数を指定された人数消せる\n           fcon 得点を追加できる\n  Cheatの書式: Cheat [-99~999](三桁で入力してください) [命令]\n※入力は大文字小文字関係なく認識されます。\n--HELP--\n");
+                            "\n--HELP--\n100回挨拶するかExitと打つまで終了できません\nExit: 終了\necho: 名前の通りエコー命令です\n  echo [テキスト]と打つとテキストの部分が帰ってきます\nName: Helloって言ってくるやつに名前をつけられます\n  name [名前]でnameの部分が名前として設定されます\n  nameのみ打つと名前機能が解除されます\nCheat: チートできます\n  Cheatの命令: \n           kill 全体の人数を指定された人数消せる\n           fcon 得点を追加できる\n  Cheatの書式: Cheat [-99~999](三桁で入力してください) [命令]\n※入力は大文字小文字関係なく認識されます。\n--HELP--\n");
                     continue;
                 }
                 if (mEcho.find()){
@@ -41,6 +49,18 @@ class STWJAGP {
                         System.out.println("\n--echo--\n(null)\n--echo--\n");
                     }
                     continue;
+                }
+                if (mName.find()){
+                    if(str_cat.length() > 5){
+                        name = str.substring(5, str.length());
+                        name_boolean = true;
+                        System.out.println("\n--Name--\nName機能を有効にしました\n現在の名前は" + name + "です\n--Name--");
+                        continue;
+                    }else{
+                        name_boolean = false;
+                        System.out.println("\n--Name--\nName機能を無効にしました\n--Name--\n");
+                        continue;
+                    }
                 }
                 if (mCheat.find()) {
                     int num_len = str_cat.length();
@@ -68,14 +88,26 @@ class STWJAGP {
                     }
                     continue;
                 }
-                if (str_cat.equals("hello")) {
-                    System.out.println(i + "人目「Hello World!!」");
-                    f++;
-                    k = false;
-                } else {
-                    System.out.println(i + "人目「は？？？？？？？」");
-                    f--;
-                    k = true;
+                if (name_boolean){
+                    if (str_cat.equals("hello")) {
+                        System.out.println(i + "人目の" + name + "「Hello!!!」");
+                        f++;
+                        k = false;
+                    } else {
+                        System.out.println(i + "人目の" + name + "「は？？？？？？？」");
+                        f--;
+                        k = true;
+                    }
+                }else{
+                    if (str_cat.equals("hello")) {
+                        System.out.println(i + "人目「Hello World!!」");
+                        f++;
+                        k = false;
+                    } else {
+                        System.out.println(i + "人目「は？？？？？？？」");
+                        f--;
+                        k = true;
+                    }
                 }
                 i++;
                 if (f < 100 && k) {
