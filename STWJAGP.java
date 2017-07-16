@@ -17,7 +17,7 @@ class STWJAGP {
         Pattern pCheat = Pattern.compile("^cheat [0-9]{0,3} [a-z]{4}$");
         Pattern pEcho = Pattern.compile("^echo |^echo$");
         Pattern pName = Pattern.compile("^name |^name$");
-        Pattern pRand = Pattern.compile("^rand [0-9]++$|^rand$");
+        Pattern pRand = Pattern.compile("^rand [0-9]{0,9]$|^rand$");
         Random Rnd = new Random();
         System.out.println("説明: HELPと入力");
         try {
