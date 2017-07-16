@@ -2,6 +2,7 @@ import java.io.*;
 import javax.print.DocFlavor.STRING;
 import javax.swing.*;
 import java.util.regex.*;
+import java.util.Random;
 // 名前の由来: Something that was just a greeting program
 // 改造しすぎて趣旨が変わってきたので名前を変えたけど実質hello100.javaです
 class STWJAGP {
@@ -14,8 +15,10 @@ class STWJAGP {
         boolean name_boolean = false;
         String name = null;
         Pattern pCheat = Pattern.compile("^cheat [0-9]{0,3} [a-z]{4}$");
-        Pattern pEcho = Pattern.compile("^echo ?+");
-        Pattern pName = Pattern.compile("^name ?+");
+        Pattern pEcho = Pattern.compile("^echo |^echo$");
+        Pattern pName = Pattern.compile("^name |^name$");
+        Pattern pRand = Pattern.compile("^rand [0-9]++$|^rand$");
+        Random Rnd = new Random();
         System.out.println("説明: HELPと入力");
         try {
             while (i < ii) {
@@ -31,6 +34,7 @@ class STWJAGP {
                 Matcher mCheat = pCheat.matcher(str_cat);
                 Matcher mEcho = pEcho.matcher(str_cat);
                 Matcher mName = pName.matcher(str_cat);
+                Matcher mRand = pRand.matcher(str_cat);
                 if (str_cat.equals("exit")) {
                     System.out.println("\nGoodBye");
                     System.exit(0);
@@ -38,7 +42,21 @@ class STWJAGP {
                 }
                 if (str_cat.equals("help")) {
                     System.out.println(
-                            "\n--HELP--\n100回挨拶するかExitと打つまで終了できません\nExit: 終了\necho: 名前の通りエコー命令です\n  echo [テキスト]と打つとテキストの部分が帰ってきます\nName: Helloって言ってくるやつに名前をつけられます\n  name [名前]でnameの部分が名前として設定されます\n  nameのみ打つと名前機能が解除されます\nCheat: チートできます\n  Cheatの命令: \n           kill 全体の人数を指定された人数消せる\n           fcon 得点を追加できる\n  Cheatの書式: Cheat [-99~999](三桁で入力してください) [命令]\n※入力は大文字小文字関係なく認識されます。\n--HELP--\n");
+                            "\n--HELP--\n100回挨拶するかExitと打つまで終了できません\nExit: 終了\necho: 名前の通りエコー命令です\n  echo [テキスト]と打つとテキストの部分が帰ってきます\nName: Helloって言ってくるやつに名前をつけられます\n  name [名前]でnameの部分が名前として設定されます\n  nameのみ打つと名前機能が解除されます\nRand: 乱数です。以上\n  Rand [数値]で0から数値の値までの乱数を生成します\n  Rand空打ちで0から7161840までの乱数を生成します\nCheat: チートできます\n  Cheatの命令: \n     kill 全体の人数を指定された人数消せる\n     fcon 得点を追加できる\n  Cheatの書式: Cheat [-99~999](三桁で入力してください) [命令]\n※入力は大文字小文字関係なく認識されます。\n--HELP--\n");
+                    continue;
+                }
+                if (mRand.find()){
+                    if(str_cat.length() > 5){
+                        String str_rand = str.substring(5, str.length());
+                        int num_rand = Integer.parseInt(str_rand);
+                        if(num_rand < 1){
+                            System.out.println("\n--Random--\n" + (Rnd.nextInt(7161840)) + "\n--Random--\n");
+                        }else{
+                            System.out.println("\n--Random--\n" + (Rnd.nextInt(num_rand)) + "\n--Random--\n");
+                        }
+                    }else{
+                        System.out.println("\n--Random--\n" + (Rnd.nextInt(7161840)) + "\n--Random--\n");
+                    }
                     continue;
                 }
                 if (mEcho.find()){
