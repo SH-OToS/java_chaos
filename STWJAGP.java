@@ -17,7 +17,7 @@ class STWJAGP {
         Pattern pCheat = Pattern.compile("^cheat [0-9]{0,3} [a-z]{4}$");
         Pattern pEcho = Pattern.compile("^echo |^echo$");
         Pattern pName = Pattern.compile("^name |^name$");
-        Pattern pRand = Pattern.compile("^rand [0-9]{0,9]$|^rand$");
+        Pattern pRand = Pattern.compile("^rand [0-9]{0,9}$|^rand$");
         Random Rnd = new Random();
         System.out.println("説明: HELPと入力");
         try {
@@ -42,7 +42,7 @@ class STWJAGP {
                 }
                 if (str_cat.equals("help")) {
                     System.out.println(
-                            "\n--HELP--\n100回挨拶するかExitと打つまで終了できません\nExit: 終了\necho: 名前の通りエコー命令です\n  echo [テキスト]と打つとテキストの部分が帰ってきます\nName: Helloって言ってくるやつに名前をつけられます\n  name [名前]でnameの部分が名前として設定されます\n  nameのみ打つと名前機能が解除されます\nRand: 乱数です。以上\n  Rand [数値]で0から数値の値までの乱数を生成します\n  Rand空打ちで0から7161840までの乱数を生成します\nCheat: チートできます\n  Cheatの命令: \n     kill 全体の人数を指定された人数消せる\n     fcon 得点を追加できる\n  Cheatの書式: Cheat [-99~999](三桁で入力してください) [命令]\n※入力は大文字小文字関係なく認識されます。\n--HELP--\n");
+                            "\n--HELP--\n100回挨拶するかExitと打つまで終了できません\nExit: 終了\necho: 名前の通りエコー命令です\n  echo [テキスト]と打つとテキストの部分が帰ってきます\nName: Helloって言ってくるやつに名前をつけられます\n  name [名前]でnameの部分が名前として設定されます\n  nameのみ打つと名前機能が解除されます\nRand: 乱数です。以上\n  Rand [数値]で0から数値の値までの乱数を生成します\n  Rand空打ちで0から2147483647までの乱数を生成します\nCheat: チートできます\n  Cheatの命令: \n     kill 全体の人数を指定された人数消せる\n     fcon 得点を追加できる\n  Cheatの書式: Cheat [-99~999](三桁で入力してください) [命令]\n※入力は大文字小文字関係なく認識されます。\n--HELP--\n");
                     continue;
                 }
                 if (mRand.find()){
@@ -50,12 +50,12 @@ class STWJAGP {
                         String str_rand = str.substring(5, str.length());
                         int num_rand = Integer.parseInt(str_rand);
                         if(num_rand < 1){
-                            System.out.println("\n--Random--\n" + (Rnd.nextInt(7161840)) + "\n--Random--\n");
+                            System.out.println("\n--Random--\n" + (Rnd.nextInt(2147483647)) + "\n--Random--\n");
                         }else{
                             System.out.println("\n--Random--\n" + (Rnd.nextInt(num_rand)) + "\n--Random--\n");
                         }
                     }else{
-                        System.out.println("\n--Random--\n" + (Rnd.nextInt(7161840)) + "\n--Random--\n");
+                        System.out.println("\n--Random--\n" + (Rnd.nextInt(2147483647)) + "\n--Random--\n");
                     }
                     continue;
                 }
@@ -73,12 +73,11 @@ class STWJAGP {
                         name = str.substring(5, str.length());
                         name_boolean = true;
                         System.out.println("\n--Name--\nName機能を有効にしました\n現在の名前は" + name + "です\n--Name--");
-                        continue;
                     }else{
                         name_boolean = false;
                         System.out.println("\n--Name--\nName機能を無効にしました\n--Name--\n");
-                        continue;
                     }
+                    continue;
                 }
                 if (mCheat.find()) {
                     int num_len = str_cat.length();
@@ -131,11 +130,10 @@ class STWJAGP {
                 if (f < 100 && k) {
                     System.out.println("得点: " + f);
                     ii++;
-                    System.out.println("残り人数: " + (ii - i));
                 } else {
                     System.out.println("得点: " + f);
-                    System.out.println("残り人数: " + (ii - i));
                 }
+                System.out.println("残り人数: " + (ii - i));
             }
             System.out.println("\nお疲れ様でした");
         } catch (IOException e) {
