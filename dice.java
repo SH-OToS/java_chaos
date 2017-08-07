@@ -7,11 +7,15 @@ class dice {
       int rand_int = Integer.parseInt(args[0]);
       int rand_count = Integer.parseInt(args[1]);
       int i = 0;
+      int rand_resurt = 0;
       System.out.println("\n" + 1 + "から" + rand_int + "までの乱数" + rand_count + "回");
       while (rand_count > i) {
-        System.out.println("rand" + (i + 1) + "回目: " + (rand.nextInt(rand_int) + 1));
+        int rand_i = (rand.nextInt(rand_int) + 1);
+        System.out.println("rand" + (i + 1) + "回目: " + rand_i);
+        rand_resurt = rand_resurt + rand_i;
         i++;
       }
+      System.out.println("結果: " + rand_resurt);
     } else {
       if (args.length >= 1) {
         int rand_int = Integer.parseInt(args[0]);
